@@ -18,6 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
+
 @main
 struct FactorialApp: App {
   // register app delegate for Firebase setup
