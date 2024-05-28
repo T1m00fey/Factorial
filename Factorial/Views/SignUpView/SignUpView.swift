@@ -6,18 +6,21 @@
 //
 
 import SwiftUI
+import PopupView
 
 struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
     
     @Binding var isScreenPresenting: Bool
+    @Binding var isSignInViewPresenting: Bool
     
     @FocusState var nameTFFocused: Bool
     @FocusState var emailTFFocused: Bool
     @FocusState var passwordTFFocused: Bool
     
-    init(isScreenPresenting: Binding<Bool>) {
+    init(isScreenPresenting: Binding<Bool>, isSignInViewPresenting: Binding<Bool>) {
         self._isScreenPresenting = isScreenPresenting
+        self._isSignInViewPresenting = isSignInViewPresenting
         
         UITextField.appearance().clearButtonMode = .whileEditing
     }
@@ -145,11 +148,17 @@ struct SignUpView: View {
                         Task {
                             do {
                                 try await viewModel.signUp()
-                                viewModel.isProfileViewPresenting.toggle()
+                                isSignInViewPresenting = false
                                 return
                             } catch {
                                 print("Error: \(error.localizedDescription)")
+                                
+                                withAnimation {
+                                    viewModel.errorText = error.localizedDescription
+                                }
                             }
+
+                            viewModel.isPopupPresenting = true
                         }
                     } label: {
                         HStack {
@@ -180,8 +189,24 @@ struct SignUpView: View {
                             isScreenPresenting.toggle()
                     }
                 }
-                .onChange(of: viewModel.isProfileViewPresenting, { oldValue, newValue in
-                    if newValue {
+                .popup(isPresented: $viewModel.isPopupPresenting) {
+                    Text(viewModel.errorText)
+                        .frame(width: UIScreen.main.bounds.width - 72)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 16)
+                        .foregroundStyle(Color.white)
+                        .background(Color.red)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                } customize: {
+                    $0
+                        .type(.floater())
+                        .position(.top)
+                        .animation(.bouncy)
+                        .dragToDismiss(true)
+                        .autohideIn(7)
+                }
+                .onChange(of: isSignInViewPresenting, { oldValue, newValue in
+                    if !newValue {
                         viewModel.nameText = ""
                         viewModel.emailText = ""
                         viewModel.passwordText = ""
@@ -191,14 +216,14 @@ struct SignUpView: View {
                         viewModel.isPasswordTFSelected = false
                     }
                 })
-                .navigationDestination(isPresented: $viewModel.isProfileViewPresenting) {
-                    ProfileView(isPresenting: $viewModel.isProfileViewPresenting)
-                }
+//                .navigationDestination(isPresented: $viewModel.isProfileViewPresenting) {
+//                    ProfileView(isPresenting: $viewModel.isProfileViewPresenting)
+//                }
             }
         }
     }
 }
 
 #Preview {
-    SignUpView(isScreenPresenting: .constant(true))
+    SignUpView(isScreenPresenting: .constant(true), isSignInViewPresenting: .constant(false))
 }

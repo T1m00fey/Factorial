@@ -11,6 +11,9 @@ import Foundation
 final class ProfileViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
     
+    @Published var errorText = ""
+    @Published var isPopupPresenting = false
+    
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)

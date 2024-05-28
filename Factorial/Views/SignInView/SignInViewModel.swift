@@ -11,13 +11,18 @@ import Foundation
 final class SignInViewModel: ObservableObject {
     @Published var emailText = ""
     @Published var passwordText = ""
+    
     @Published var isFirstTFSelected = false
     @Published var isSecondTFSelected = false
+    
     @Published var isEmailEntered = false
     @Published var isPasswordEntered = false
+    
     @Published var isSignUpViewPresenting = false
-    @Published var isProfileViewPresenting = false
     @Published var isForgotPasswordViewPresenting = false
+    
+    @Published var isPopupPresenting = false
+    @Published var errorText = ""
     
     @Published private(set) var user: DBUser? = nil
     

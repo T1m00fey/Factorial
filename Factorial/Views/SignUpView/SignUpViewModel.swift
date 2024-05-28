@@ -12,13 +12,17 @@ final class SignUpViewModel: ObservableObject {
     @Published var nameText = ""
     @Published var emailText = ""
     @Published var passwordText = ""
+    
     @Published var isNameTFSelected = false
     @Published var isEmailTFSelected = false
     @Published var isPasswordTFSelected = false
+    
     @Published var isNameEntered = false
     @Published var isEmailEntered = false
     @Published var isPasswordEntered = false
-    @Published var isProfileViewPresenting = false
+    
+    @Published var isPopupPresenting = false
+    @Published var errorText = ""
     
     func signUp() async throws {
         guard !emailText.isEmpty, !passwordText.isEmpty else {

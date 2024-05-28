@@ -26,7 +26,7 @@ struct FactorialApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationView {
-        SignInView()
+        RootView()
       }
     }
   }

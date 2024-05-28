@@ -12,6 +12,8 @@ final class ForgotPasswordViewModel: ObservableObject {
     @Published var emailText = ""
     @Published var isTFSelected = false
     @Published var isEmailEntered = false
+    @Published var errorText = ""
+    @Published var isPopupPresenting = false
     
     func resetPassword() async throws {
         let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
@@ -84,10 +86,22 @@ struct ForgotPasswordView: View {
                             do {
                                 try await viewModel.resetPassword()
                                 print("PASSWORD RESET")
+                                
+                                viewModel.isTFSelected = false
+                                viewModel.emailText = ""
+                                
                                 dismiss()
+                                
+                                return
                             } catch {
                                 print("Error: \(error.localizedDescription)")
+                                
+                                withAnimation {
+                                    viewModel.errorText = error.localizedDescription
+                                }
                             }
+                            
+                            viewModel.isPopupPresenting = true
                         }
                     } label: {
                         Text("Готово")
@@ -103,6 +117,22 @@ struct ForgotPasswordView: View {
                     .disabled(!viewModel.isEmailEntered)
                     
                     Spacer()
+                }
+                .popup(isPresented: $viewModel.isPopupPresenting) {
+                    Text(viewModel.errorText)
+                        .frame(width: UIScreen.main.bounds.width - 72)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 16)
+                        .foregroundStyle(Color.white)
+                        .background(Color.red)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                } customize: {
+                    $0
+                        .type(.floater())
+                        .position(.top)
+                        .animation(.bouncy)
+                        .dragToDismiss(true)
+                        .autohideIn(7)
                 }
                 .navigationBarBackButtonHidden()
                 .toolbar {

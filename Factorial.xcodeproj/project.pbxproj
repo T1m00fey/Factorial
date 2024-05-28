@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C458ACB92BFF8ABD00CB2068 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = C458ACB82BFF8ABD00CB2068 /* PopupView */; };
 		C4A1EAD52BF0D3B00026C1BF /* FactorialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1EAD42BF0D3B00026C1BF /* FactorialApp.swift */; };
 		C4A1EAD92BF0D3B10026C1BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A1EAD82BF0D3B10026C1BF /* Assets.xcassets */; };
 		C4A1EADC2BF0D3B10026C1BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A1EADB2BF0D3B10026C1BF /* Preview Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		C4A1EAF92BF265B60026C1BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C4A1EAF82BF265B60026C1BF /* FirebaseFirestoreSwift */; };
 		C4A1EAFC2BF60E930026C1BF /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1EAFB2BF60E930026C1BF /* AuthenticationManager.swift */; };
 		C4A1EAFF2BF616B80026C1BF /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1EAFE2BF616B80026C1BF /* ProfileView.swift */; };
+		C4EFC6682C00A39D00A46C31 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EFC6672C00A39D00A46C31 /* RootView.swift */; };
 		C4F563702BFB42BA005EFFD0 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5636F2BFB42BA005EFFD0 /* UserManager.swift */; };
 		C4F563752BFDE2B8005EFFD0 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F563742BFDE2B8005EFFD0 /* ProfileViewModel.swift */; };
 		C4F563772BFDEC0D005EFFD0 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F563762BFDEC0D005EFFD0 /* ForgotPasswordView.swift */; };
@@ -41,6 +43,7 @@
 		C4A1EAED2BF2645D0026C1BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C4A1EAFB2BF60E930026C1BF /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		C4A1EAFE2BF616B80026C1BF /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C4EFC6672C00A39D00A46C31 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C4F5636F2BFB42BA005EFFD0 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		C4F563742BFDE2B8005EFFD0 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		C4F563762BFDEC0D005EFFD0 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C458ACB92BFF8ABD00CB2068 /* PopupView in Frameworks */,
 				C4A1EAF92BF265B60026C1BF /* FirebaseFirestoreSwift in Frameworks */,
 				C4A1EAF32BF265B60026C1BF /* FirebaseAnalyticsSwift in Frameworks */,
 				C4A1EAF72BF265B60026C1BF /* FirebaseFirestore in Frameworks */,
@@ -104,6 +108,7 @@
 		C4A1EAE62BF2636B0026C1BF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C4EFC6672C00A39D00A46C31 /* RootView.swift */,
 				C4A1EAFA2BF39FF30026C1BF /* Authentication */,
 				C4A1EAE72BF263750026C1BF /* SignInView */,
 				C4A1EAEA2BF2639F0026C1BF /* SignUpView */,
@@ -196,6 +201,7 @@
 				C4A1EAF42BF265B60026C1BF /* FirebaseAuth */,
 				C4A1EAF62BF265B60026C1BF /* FirebaseFirestore */,
 				C4A1EAF82BF265B60026C1BF /* FirebaseFirestoreSwift */,
+				C458ACB82BFF8ABD00CB2068 /* PopupView */,
 			);
 			productName = Factorial;
 			productReference = C4A1EAD12BF0D3B00026C1BF /* Factorial.app */;
@@ -227,6 +233,7 @@
 			mainGroup = C4A1EAC82BF0D3B00026C1BF;
 			packageReferences = (
 				C4A1EAEF2BF265B60026C1BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C458ACB72BFF8ABD00CB2068 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = C4A1EAD22BF0D3B00026C1BF /* Products */;
 			projectDirPath = "";
@@ -264,6 +271,7 @@
 				C4A1EAE52BF2196C0026C1BF /* SignUpView.swift in Sources */,
 				C4A1EAFF2BF616B80026C1BF /* ProfileView.swift in Sources */,
 				C4F563702BFB42BA005EFFD0 /* UserManager.swift in Sources */,
+				C4EFC6682C00A39D00A46C31 /* RootView.swift in Sources */,
 				C4F563772BFDEC0D005EFFD0 /* ForgotPasswordView.swift in Sources */,
 				C4F5637B2BFE299F005EFFD0 /* FactsView.swift in Sources */,
 				C4A1EAD52BF0D3B00026C1BF /* FactorialApp.swift in Sources */,
@@ -476,6 +484,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C458ACB72BFF8ABD00CB2068 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.9.2;
+			};
+		};
 		C4A1EAEF2BF265B60026C1BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -487,6 +503,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C458ACB82BFF8ABD00CB2068 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C458ACB72BFF8ABD00CB2068 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
 		C4A1EAF02BF265B60026C1BF /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C4A1EAEF2BF265B60026C1BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

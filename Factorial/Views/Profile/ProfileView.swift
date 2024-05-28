@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     
-    @Binding var isPresenting: Bool
+    @Binding var isSignInViewPresenting: Bool
     
     var body: some View {
         NavigationStack {
@@ -19,11 +19,17 @@ struct ProfileView: View {
                     Task {
                         do {
                             try viewModel.signOut()
-                            isPresenting.toggle()
+                            isSignInViewPresenting.toggle()
                             return
                         } catch {
                             print("Error: \(error.localizedDescription)")
+                            
+                            withAnimation {
+                                viewModel.errorText = error.localizedDescription
+                            }
                         }
+                        
+                        viewModel.isPopupPresenting = true
                     }
                 }
                 .foregroundStyle(Color.red)
@@ -33,10 +39,18 @@ struct ProfileView: View {
                         Task {
                             do {
                                 try await viewModel.delete()
-                                isPresenting.toggle()
+                                isSignInViewPresenting.toggle()
+                                
+                                return
                             } catch {
                                 print(error.localizedDescription)
+                                
+                                withAnimation {
+                                    viewModel.errorText = error.localizedDescription
+                                }
                             }
+                            
+                            viewModel.isPopupPresenting = true
                         }
                     }
                 }
@@ -51,9 +65,17 @@ struct ProfileView: View {
                                 do {
                                     try await viewModel.resetPassword()
                                     print("Success")
+                                    
+                                    return
                                 } catch {
                                     print("Error: \(error.localizedDescription)")
+                                    
+                                    withAnimation {
+                                        viewModel.errorText = error.localizedDescription
+                                    }
                                 }
+                                
+                                viewModel.isPopupPresenting = true
                             }
                         }
                         .foregroundStyle(Color.blue)
@@ -63,12 +85,36 @@ struct ProfileView: View {
             .task {
                 try? await viewModel.loadCurrentUser()
             }
-            .navigationTitle("Здравствуйте, \(viewModel.user?.name ?? "Name not found")")
+            .navigationTitle("Здравствуйте, \(viewModel.user?.name ?? "name not found")")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
+            .onChange(of: isSignInViewPresenting) { oldValue, newValue in
+                if !newValue {
+                    Task {
+                        try? await viewModel.loadCurrentUser()
+                    }
+                }
+            }
+            .popup(isPresented: $viewModel.isPopupPresenting) {
+                Text(viewModel.errorText)
+                    .frame(width: UIScreen.main.bounds.width - 72)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 16)
+                    .foregroundStyle(Color.white)
+                    .background(Color.red)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } customize: {
+                $0
+                    .type(.floater())
+                    .position(.top)
+                    .animation(.bouncy)
+                    .dragToDismiss(true)
+                    .autohideIn(7)
+            }
         }
     }
 }
 
 #Preview {
-    ProfileView(isPresenting: .constant(true))
+    ProfileView(isSignInViewPresenting: .constant(true))
 }
